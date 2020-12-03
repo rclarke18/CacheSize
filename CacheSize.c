@@ -1,45 +1,48 @@
 #include "CacheSize.h"
 
 
-double fetchMain (int* t){      // pulls data from main memory t times
+double fetchMain (void* t){      // pulls data from main memory t times
 	int N = 10; // Number of bytes to allocate
 	int *ptr;   // Pointer variable to store address
+	int *r;
 	struct timespec ts_begin, ts_end;
 	double elapsed; 
 
+	r = t;
 	ptr = (int *) malloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
 	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
-	for(int i = 0, i < &t, i++){
+	for(int i = 0, i < *r, i++){
 		temp = ptr[i];
 	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_end);
 	free(ptr);
 	elapsed = ts_end.tv_sec - ts_begin.tv_sec;
 	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec) / 1000000000.0;
-	return elapsed/t;
+	return elapsed/&t;
 }
 
-double fetchCache (int* t){	// pulls data from cached memory t times
+double fetchCache (void* t){	// pulls data from cached memory t times
 	int N = &t; // Number of bytes to allocate
 	int *ptr;   // Pointer variable to store address
+	int *r;
 	struct timespec ts_begin, ts_end;
 	double elapsed; 
 	int temp = 7;
 
-
+	r = t;
 	ptr = (int *) calloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
-	for(int i = 0, i < &t, i++){
+	for(int i = 0, i < *r, i++){
 		temp = ptr[i];
 	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
-	for(int i = 0, i < &t, i++){
+	for(int i = 0, i < *r, i++){
 		temp = ptr[i];
 	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_end);
 	free(ptr);
 	elapsed = ts_end.tv_sec - ts_begin.tv_sec;
 	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec) / 1000000000.0;
-	return elapsed;
+	return elapsed/&t;
 }
 
 
