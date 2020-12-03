@@ -9,8 +9,8 @@ double fetchMain (int* t){      // pulls data from main memory t times
 
 	ptr = (int *) malloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
 	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
-	for(int i = 0, i < @t, i++){
-
+	for(int i = 0, i < &t, i++){
+		temp = ptr[i];
 	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_end);
 	free(ptr);
@@ -20,7 +20,7 @@ double fetchMain (int* t){      // pulls data from main memory t times
 }
 
 double fetchCache (int* t){	// pulls data from cached memory t times
-	int N = @t; // Number of bytes to allocate
+	int N = &t; // Number of bytes to allocate
 	int *ptr;   // Pointer variable to store address
 	struct timespec ts_begin, ts_end;
 	double elapsed; 
@@ -28,8 +28,11 @@ double fetchCache (int* t){	// pulls data from cached memory t times
 
 
 	ptr = (int *) calloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
+	for(int i = 0, i < &t, i++){
+		temp = ptr[i];
+	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
-	for(int i = 0, i < @t, i++){
+	for(int i = 0, i < &t, i++){
 		temp = ptr[i];
 	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_end);
@@ -41,7 +44,7 @@ double fetchCache (int* t){	// pulls data from cached memory t times
 
 
 int getSize (int* t){		// loops thru to determine the size of cache
-	int N = @t; // Number of bytes to allocate
+	int N = &t; // Number of bytes to allocate
 	int *ptr;   // Pointer variable to store address
 
 	ptr = (int *) malloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
