@@ -13,21 +13,27 @@ double fetchMain (int* t){      // pulls data from main memory t times
 
 	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_end);
+	free(ptr);
 	elapsed = ts_end.tv_sec - ts_begin.tv_sec;
 	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec) / 1000000000.0;
-	return elapsed;
+	return elapsed/t;
 }
 
 double fetchCache (int* t){	// pulls data from cached memory t times
+	int N = @t; // Number of bytes to allocate
+	int *ptr;   // Pointer variable to store address
 	struct timespec ts_begin, ts_end;
 	double elapsed; 
+	int temp = 7;
 
-	ptr = (int *) malloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
+
+	ptr = (int *) calloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
 	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
 	for(int i = 0, i < @t, i++){
-		
+		temp = ptr[i];
 	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_end);
+	free(ptr);
 	elapsed = ts_end.tv_sec - ts_begin.tv_sec;
 	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec) / 1000000000.0;
 	return elapsed;
