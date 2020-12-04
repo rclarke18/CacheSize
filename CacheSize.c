@@ -54,12 +54,12 @@ void* fetchCache (void* t){	// pulls data from cached memory t times
 
 
 int getSize (int* t){		// loops thru to determine the size of cache
-	system("echo 3 > /proc/sys/vm/drop_caches");
+	//system("echo 3 > /proc/sys/vm/drop_caches");
 	int* N = t; // Number of bytes to allocate
 	int *ptr;   // Pointer variable to store address
-	ptr = (int *) malloc(*N * sizeof(int));  // Allocate 10 * 4 bytes in memory
+	ptr = (int *) malloc(*N);  // Allocate 10 * 4 bytes in memory
 	if(ptr==NULL)  return 0;
-	return ((*N)* sizeof(int));
+	return ((*N));
 }
 
 

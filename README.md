@@ -11,7 +11,10 @@ We call this function a set amount of times in order to get a more accurate aver
 
 ### Cache Size Funcion
 Attempts to allocate larger and larger blocks of static memory to see the largest cache size allowed.  
- - won't work: could hit another cached value and throw smaller array size than actually possible    
+ - we tried to first clear the cache via a shell script, but the necesarry command requires elevated privaleges.  
+ - To run with clearing cache, uncomment out the line " //system("echo 3 > /proc/sys/vm/drop_caches");"  
+ - Next ensure you are running as a super user  
+ - finally type the command "make && ./CacheSize"  
 
 ### Cache Block Size Function 
 Explanation  
