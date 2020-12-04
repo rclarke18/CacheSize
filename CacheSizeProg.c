@@ -17,7 +17,7 @@ int main(int argc, char** argv){
         1 * KB, 4 * KB, 8 * KB, 16 * KB, 32 * KB, 64 * KB, 128 * KB, 256 * KB,
         512 * KB, 1 * MB, 1.5 * MB, 2 * MB, 2.5 * MB, 3 * MB, 3.5 * MB, 4 * MB, 5.0 * MB
     };
-    int largest = 0;
+  //  int largest = 0;
 
 	pthread_create(&th_cacheSpeed, NULL, fetchCache, (void*)&runs);
 	pthread_create(&th_mainSpeed, NULL, fetchMain, (void*)&runs);
@@ -30,7 +30,8 @@ int main(int argc, char** argv){
 	for (int i = 0; i < sizeof(sizes)/sizeof(int);i++){
 		double timeTaken = getSize(&sizes[i]);
 		if (timeTaken > cacheT)
-			printf("Cache Memory Size : %d bytes\n", sizes[i-1]);
+			printf("Cache Memory Size : %d Bytes\n", sizes[i-1]);
+		break;
 	}
 	
 

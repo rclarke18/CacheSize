@@ -11,6 +11,7 @@ We call this function a set amount of times in order to get a more accurate aver
 
 ### Cache Size Funcion
 Attempts to allocate larger and larger blocks of static memory to see the largest cache size allowed.  
+ - the largest cache size is determined by comparing the time required to read/write to cache memory. If the write takes longer than average we assume the memory forced into slower main memory  
  - we tried to first clear the cache via a shell script, but the necesarry command requires elevated privaleges.  
  - To run with clearing cache, uncomment out the line " //system("echo 3 > /proc/sys/vm/drop_caches");"  
  - Next ensure you are running as a super user  

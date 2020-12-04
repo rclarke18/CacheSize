@@ -62,13 +62,15 @@ double getSize (int* t){		// loops thru to determine the size of cache
 	double elapsed;
 	struct timespec ts_begin, ts_end;
 	static int arr[4 * 1024 * 1024];
-    int lengthMod = 512 * KB - 1;
+    int lengthMod;
     unsigned int i;
 	
+
+    lengthMod = *t -1;
 	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
 	for (i = 0; i < steps; i++) {
-        arr[(i * 16) & lengthMod] *= 10;
-        arr[(i * 16) & lengthMod] /= 10;
+       arr[(i * 16) & lengthMod] *= 10;
+       arr[(i * 16) & lengthMod] /= 10;
     }
 	clock_gettime(CLOCK_MONOTONIC, &ts_end);
 	elapsed = (ts_end.tv_sec - ts_begin.tv_sec) * 1000000000.0;
