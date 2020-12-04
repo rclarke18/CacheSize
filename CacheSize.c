@@ -79,7 +79,8 @@ double getSize (int* t){		// loops thru to determine the size of cache
 }
 
 
-float getBSize (void* t) {       // 
+float getBSize() {       
 	float size = 0.0;
+	size = system("blockdev -q --getbsz /dev/sda1");
 	return size;
 }

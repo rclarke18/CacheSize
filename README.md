@@ -2,12 +2,10 @@
 Tool to determine Cache Size and Execution Speed  
 
 ### Cached Speed Test Function
-Calls a cached data value in a comparator  
-We call this function a set amount of times in order to get a more accurate average time of pulling from the cache.  
+Allocates memory for an array of size chosen by the user (we used 10,000). It then cycles through pulling the array into cached memory. We then time our loop back through the cached array and average the time each read took.  
 
 ### Main Memory Speed Test Function
-Calls a new data value from main memory to use in a comparator  
-We call this function a set amount of times in order to get a more accurate average time of pulling from main.  
+Follows the same theory as the cached speed test, but instead of caching the array, we simply record the time it takes on the first read from main memory.  
 
 ### Cache Size Funcion
 Attempts to allocate larger and larger blocks of static memory to see the largest cache size allowed.  
@@ -18,4 +16,4 @@ Attempts to allocate larger and larger blocks of static memory to see the larges
  - finally type the command "make && ./CacheSize"  
 
 ### Cache Block Size Function 
-Explanation  
+ Returns the size of block stored on the L1 cached memory by checking the size peremiter  
