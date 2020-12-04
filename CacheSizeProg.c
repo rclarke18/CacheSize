@@ -15,7 +15,7 @@ int main(int argc, char** argv){
 	pthread_t th_cacheSpeed, th_mainSpeed; 
 	int sizes[] = { 
         1 * KB, 4 * KB, 8 * KB, 16 * KB, 32 * KB, 64 * KB, 128 * KB, 256 * KB,
-        512 * KB, 1 * MB, 1.5 * MB, 2 * MB, 2.5 * MB, 3 * MB, 3.5 * MB, 4 * MB
+        512 * KB, 1 * MB, 1.5 * MB, 2 * MB, 2.5 * MB, 3 * MB, 3.5 * MB, 4 * MB, 5.0 * MB
     };
     int largest = 0;
 
@@ -28,10 +28,11 @@ int main(int argc, char** argv){
 	printf("\nCached Memory Fetch Average Speed : %f  ns\nMain Memory Fetch Average Speed : %f  ns\n", cacheT,mainT);
 
 	for (int i = 0; i < sizeof(sizes)/sizeof(int);i++){
-		int tempLargest = getSize(&sizes[i]);
-		if (tempLargest > largest) largest = tempLargest; 
+		double timeTaken = getSize(&sizes[i]);
+		if (timeTaken > cacheT)
+			printf("Cache Memory Size : %d bytes\n", sizes[i-1]);
 	}
-	printf("Cache Memory Size : %d\n bytes", largest);
+	
 
 	return 1;
 }

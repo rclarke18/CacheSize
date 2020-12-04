@@ -12,7 +12,7 @@ double mainT, cacheT;
 
 void* fetchMain (void* t);      // pulls data from main memory
 void* fetchCache (void* t);	// pulls data from cached memory
-int getSize (int* t);		// loops thru to determine the size of cache 
+double getSize (int* t);		// loops thru to determine the size of cache 
 float getBSize (void* t);
 
 #endif // CacheSize_impl_h

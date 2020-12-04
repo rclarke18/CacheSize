@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "CacheSize.h"
 
+#define KB 1024
 double mainT, cacheT;
 
 void* fetchMain (void* t){      // pulls data from main memory t times
@@ -53,13 +54,26 @@ void* fetchCache (void* t){	// pulls data from cached memory t times
 }
 
 
-int getSize (int* t){		// loops thru to determine the size of cache
+double getSize (int* t){		// loops thru to determine the size of cache
 	//system("echo 3 > /proc/sys/vm/drop_caches");
-	int* N = t; // Number of bytes to allocate
-	int *ptr;   // Pointer variable to store address
-	ptr = (int *) malloc(*N);  // Allocate 10 * 4 bytes in memory
-	if(ptr==NULL)  return 0;
-	return ((*N));
+	//int* N = t; // Number of bytes to allocate
+	//int *ptr;   // Pointer variable to store address
+	unsigned int steps = 512 * 1024 * 1024;
+	double elapsed;
+	struct timespec ts_begin, ts_end;
+	static int arr[4 * 1024 * 1024];
+    int lengthMod = 512 * KB - 1;
+    unsigned int i;
+	
+	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
+	for (i = 0; i < steps; i++) {
+        arr[(i * 16) & lengthMod] *= 10;
+        arr[(i * 16) & lengthMod] /= 10;
+    }
+	clock_gettime(CLOCK_MONOTONIC, &ts_end);
+	elapsed = (ts_end.tv_sec - ts_begin.tv_sec) * 1000000000.0;
+	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec);// / 1000000000.0;
+	return (elapsed);
 }
 
 
