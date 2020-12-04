@@ -8,9 +8,11 @@
 #include <sys/types.h>
 #include <sys/wait.h>  // for waitpid()
 
-double fetchMain (void* t);      // pulls data from main memory
-double fetchCache (void* t);	// pulls data from cached memory
-float getSize (void* t);		// loops thru to determine the size of cache 
+double mainT, cacheT;
+
+void* fetchMain (void* t);      // pulls data from main memory
+void* fetchCache (void* t);	// pulls data from cached memory
+double getSize (int* t);		// loops thru to determine the size of cache 
 float getBSize (void* t);
 
 #endif // CacheSize_impl_h

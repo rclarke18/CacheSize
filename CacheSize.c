@@ -1,55 +1,85 @@
+#include <stdlib.h>
 #include "CacheSize.h"
 
+#define KB 1024
+double mainT, cacheT;
 
-double fetchMain (int* t){      // pulls data from main memory t times
-	int N = 10; // Number of bytes to allocate
+void* fetchMain (void* t){      // pulls data from main memory t times
+	//int N = 10; // Number of bytes to allocate
 	int *ptr;   // Pointer variable to store address
+	int *r;
 	struct timespec ts_begin, ts_end;
 	double elapsed; 
+	int temp;
 
-	ptr = (int *) malloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
+	r = t;
+	ptr = (int *) malloc(*r * sizeof(int));  // Allocate 10 * 4 bytes in memory
 	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
-	for(int i = 0, i < @t, i++){
-
+	for(int i = 0; i < *r; i++){
+		temp = ptr[i];
 	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_end);
+	temp++;
 	free(ptr);
-	elapsed = ts_end.tv_sec - ts_begin.tv_sec;
-	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec) / 1000000000.0;
-	return elapsed/t;
+	elapsed = (ts_end.tv_sec - ts_begin.tv_sec) * 1000000000.0;
+	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec);// / 1000000000.0;
+	mainT = (elapsed / *r);
+	return NULL;
 }
 
-double fetchCache (int* t){	// pulls data from cached memory t times
-	int N = @t; // Number of bytes to allocate
+void* fetchCache (void* t){	// pulls data from cached memory t times
+	//int N = *t; // Number of bytes to allocate
 	int *ptr;   // Pointer variable to store address
+	int *r;
 	struct timespec ts_begin, ts_end;
 	double elapsed; 
 	int temp = 7;
 
-
-	ptr = (int *) calloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
+	r = t;
+	ptr = (int *) calloc(*r, sizeof(int));  // Allocate 10 * 4 bytes in memory
+	for(int i = 0; i < *r; i++){
+		temp = ptr[i];
+	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
-	for(int i = 0, i < @t, i++){
+	for(int i = 0; i < *r; i++){
 		temp = ptr[i];
 	}
 	clock_gettime(CLOCK_MONOTONIC, &ts_end);
 	free(ptr);
-	elapsed = ts_end.tv_sec - ts_begin.tv_sec;
-	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec) / 1000000000.0;
-	return elapsed;
+	temp++;
+	elapsed = (ts_end.tv_sec - ts_begin.tv_sec) * 1000000000.0;
+	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec);// / 1000000000.0;
+	cacheT = (elapsed / *r);
+	return NULL;
 }
 
 
-int getSize (int* t){		// loops thru to determine the size of cache
-	int N = @t; // Number of bytes to allocate
-	int *ptr;   // Pointer variable to store address
+double getSize (int* t){		// loops thru to determine the size of cache
+	//system("echo 3 > /proc/sys/vm/drop_caches");
+	//int* N = t; // Number of bytes to allocate
+	//int *ptr;   // Pointer variable to store address
+	unsigned int steps = 512 * 1024 * 1024;
+	double elapsed;
+	struct timespec ts_begin, ts_end;
+	static int arr[4 * 1024 * 1024];
+    int lengthMod;
+    unsigned int i;
+	
 
-	ptr = (int *) malloc(N * sizeof(int));  // Allocate 10 * 4 bytes in memory
-	if(ptr==NULL)  return 0;
-	return ((N)* sizeof(int));
+    lengthMod = *t -1;
+	clock_gettime(CLOCK_MONOTONIC, &ts_begin);
+	for (i = 0; i < steps; i++) {
+       arr[(i * 16) & lengthMod] *= 10;
+       arr[(i * 16) & lengthMod] /= 10;
+    }
+	clock_gettime(CLOCK_MONOTONIC, &ts_end);
+	elapsed = (ts_end.tv_sec - ts_begin.tv_sec) * 1000000000.0;
+	elapsed += (ts_end.tv_nsec - ts_begin.tv_nsec);// / 1000000000.0;
+	return (elapsed);
 }
 
 
 float getBSize (void* t) {       // 
-
+	float size = 0.0;
+	return size;
 }
