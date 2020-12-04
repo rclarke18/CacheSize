@@ -34,6 +34,7 @@ int main(int argc, char** argv){
 		break;
 	}
 	
+	printf("Cache Block Size : %f Bytes\n", getBSize());
 
 	return 1;
 }
